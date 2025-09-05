@@ -214,3 +214,38 @@ Das Script:
 ✅ Startet Browser-Stream automatisch  
 ✅ Verwendet freie Ports (8090)
 ✅ Zeigt alle URLs an
+
+## 🍎 Safari HTTPS-Problem Lösungen
+
+**Problem:** Safari blockiert HTTP-Verbindungen aus Sicherheitsgründen
+
+### **Option 1: HTTPS-Stream (empfohlen)**
+```bash
+./scripts/https-stream.sh
+```
+**Dann Safari öffnen:** `https://192.168.1.169:8443`
+⚠️ Bei "Nicht sicher" Warnung: **Erweitert → Trotzdem fortfahren**
+
+### **Option 2: Chrome/Firefox auf iPhone**
+- Chrome oder Firefox aus App Store
+- `http://192.168.1.169:8090` funktioniert dort
+
+### **Option 3: VLC App (beste Qualität)**
+- VLC App aus App Store (kostenlos)
+- URL: `tcp://192.168.1.169:8888`
+- Beste Videoqualität und Latenz
+
+### **Option 4: Safari-Einstellungen**
+**Einstellungen → Safari → Erweitert → Experimentelle Features:**
+- "Block all mixed content" ausschalten
+- "Upgrade mixed content" ausschalten
+
+## 📱 Safari-Empfehlung für IT-Kurs
+
+**Für Teilnehmer:**
+1. **VLC App** installieren (beste Lösung)
+2. **Chrome** als Backup-Browser 
+3. **HTTPS-Stream** für Safari-only Nutzer
+
+**Für Demo:**
+- HTTPS-Stream zeigt alle Sicherheitswarnungen → Lerneffekt!
