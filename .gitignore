@@ -1,0 +1,19 @@
+# Logs
+*.log
+
+# Temporary files  
+/tmp/
+*.tmp
+
+# Environment files with secrets
+.env.local
+youtube-key.txt
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Video/Image test files
+*.h264
+*.jpg
+*.mp4
