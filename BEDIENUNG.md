@@ -157,15 +157,15 @@ Siehe auch: [docs/it-course/README.md](docs/it-course/README.md)
 ./scripts/web-stream.sh
 
 # 2. Im Browser öffnen:  
-http://192.168.1.169:8080
+http://192.168.1.169:8090
 ```
 
 ### Browser-URLs:
 | Gerät | URL |
 |-------|-----|
-| **Zu Hause** | http://192.168.1.169:8080 |
-| **Hotspot** | http://10.42.0.1:8080 |  
-| **Schulung** | http://[PI-IP]:8080 |
+| **Zu Hause** | http://192.168.1.169:8090 |
+| **Hotspot** | http://10.42.0.1:8090 |  
+| **Schulung** | http://[PI-IP]:8090 |
 
 ### Mobile Apps (empfohlen für beste Qualität):
 - **iPhone/iPad**: VLC App (kostenlos)
@@ -176,7 +176,7 @@ http://192.168.1.169:8080
 
 Du kannst beide gleichzeitig nutzen:
 - **TCP-Stream**: Läuft automatisch (Port 8888) - für VLC Apps
-- **Web-Stream**: Startest du manuell (Port 8080) - für Browser
+- **Web-Stream**: Startest du manuell (Port 8090) - für Browser
 
 ```bash
 # TCP-Stream (läuft automatisch):
@@ -196,3 +196,21 @@ systemctl status birdcam-tcp.service
 **Empfehlung**: 
 - **VLC App** für beste Qualität
 - **Browser** für schnellen Zugriff ohne App
+
+## 🚀 Schnellstart Browser-Stream
+
+**Einfachster Weg für iPhone/Browser:**
+```bash
+./start-browser-stream.sh
+```
+
+**URLs aktualisiert (Port 8090 statt 8080):**
+- Zu Hause: `http://192.168.1.169:8090`
+- Hotspot: `http://10.42.0.1:8090`
+- Schulung: `http://[PI-IP]:8090`
+
+Das Script:
+✅ Prüft ob TCP-Stream läuft
+✅ Startet Browser-Stream automatisch  
+✅ Verwendet freie Ports (8090)
+✅ Zeigt alle URLs an
