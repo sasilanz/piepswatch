@@ -134,3 +134,33 @@ MIT License - Feel free to use for your own bird watching projects!
 **Created by**: Astrid Lanz, 2025  
 **Hardware**: Raspberry Pi + Camera Module  
 **Purpose**: Bird watching and nature observation
+
+## 🎓 IT-Kurs Integration
+
+Dieses System eignet sich perfekt als praktisches Beispiel für **Senioren-IT-Kurse** zum Thema Netzwerk und IoT.
+
+### Kurs-Features:
+- 📡 **Flexible WLAN-Konfiguration** mit verschiedenen Netzwerken  
+- 🔄 **Hotspot-Modus** für unabhängige Demos
+- 🔌 **USB-Ethernet Backup** für Notfall-Zugriff
+- 📚 **Interaktive Tools** für hands-on Learning
+
+### Schnellstart für Kursleiter:
+```bash
+# WLAN-Setup-Tool für flexible Netzwerke
+sudo ./scripts/wifi-setup.sh
+
+# USB-Ethernet für Backup-Zugriff aktivieren  
+sudo ./scripts/usb-ethernet-setup.sh
+
+# Kurs-Dokumentation
+cat docs/it-course/README.md
+cat docs/it-course/quick-reference.md
+```
+
+### Notfall-Zugriff im Schulungsraum:
+1. **Hotspot-Modus**: Pi wird zum WLAN-Access-Point (`Piepswatch-Demo`)
+2. **USB-Ethernet**: Direktverbindung zum Laptop über USB-Kabel
+3. **HDMI**: Monitor und Tastatur direkt anschließen
+
+Siehe [IT-Kurs Dokumentation](docs/it-course/README.md) für detaillierte Anleitung.
