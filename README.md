@@ -25,6 +25,10 @@ rtsp://192.168.1.169:8554/emily
 - **QuickTime**: File → Open Location
 - **Any RTSP-capable app**
 
+### Browsers (Chrome, Safari, Firefox)
+❌ **RTSP does not work in browsers** - this is normal!  
+✅ **Solution**: Use VLC app (30 seconds to install)
+
 ## ⚙️ Control
 
 ```bash
@@ -37,6 +41,14 @@ sudo systemctl restart emily-stream.service
 # View logs
 journalctl -u emily-stream.service -f
 ```
+
+## 🎯 Available Scripts
+
+| Script | Purpose | Command |
+|--------|---------|---------|
+| **wifi-setup.sh** | Switch WiFi networks | `sudo ./scripts/wifi-setup.sh` |
+| **youtube-stream.sh** | Stream to YouTube Live | `./scripts/youtube-stream.sh` |
+| **usb-ethernet-setup.sh** | USB backup connection | `sudo ./scripts/usb-ethernet-setup.sh` |
 
 ## 🌐 Network Setup
 
@@ -58,19 +70,13 @@ Stream to YouTube Live from Mac/PC:
 ```bash
 # 1. Add your YouTube stream key
 cp config/youtube-key.txt.template config/youtube-key.txt
-# Edit the file with your key
+nano config/youtube-key.txt  # Add your key
 
 # 2. Start YouTube stream
 ./scripts/youtube-stream.sh
 ```
 
-## 🔧 Installation
-
-```bash
-git clone https://github.com/sasilanz/piepswatch.git
-cd piepswatch
-./setup.sh
-```
+Get your stream key from [YouTube Studio](https://studio.youtube.com).
 
 ## 🎓 IT Course Ready
 
@@ -88,7 +94,7 @@ See [IT Course Documentation](docs/it-course/) for detailed lesson plans.
 - **Format**: H.264 video stream
 - **Resolution**: 640x480 @ 30fps
 - **Latency**: < 1 second (true live streaming)
-- **Compatibility**: All major devices and apps
+- **Compatibility**: All major devices and apps (except browsers)
 
 ## 🏠 Network Addresses
 
@@ -113,6 +119,25 @@ hostname -I  # Get current IP
 **Network issues?**
 ```bash
 sudo ./scripts/wifi-setup.sh  # Switch networks
+```
+
+**Browser doesn't work?**  
+✅ **This is normal!** Browsers don't support RTSP.  
+✅ **Solution**: Install VLC app instead.
+
+## 📂 Project Structure
+
+```
+piepswatch-birdcam/
+├── README.md                 # This file
+├── BEDIENUNG.md             # German instructions
+├── scripts/
+│   ├── wifi-setup.sh        # WiFi network switching
+│   ├── youtube-stream.sh    # YouTube Live integration  
+│   └── usb-ethernet-setup.sh # USB backup connection
+├── config/
+│   └── youtube-key.txt.template # YouTube key template
+└── docs/it-course/          # IT course materials
 ```
 
 ---
