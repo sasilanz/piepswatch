@@ -201,7 +201,7 @@ systemctl status birdcam-tcp.service
 
 **Einfachster Weg für iPhone/Browser:**
 ```bash
-./start-browser-stream.sh
+./scripts/start-browser-stream.sh
 ```
 
 **URLs aktualisiert (Port 8090 statt 8080):**

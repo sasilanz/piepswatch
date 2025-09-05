@@ -1,6 +1,9 @@
 #!/bin/bash
 # Quick Start für Browser-Stream
 
+SCRIPT_DIR="$(dirname "$0")"
+cd "$(dirname "$SCRIPT_DIR")"  # Go to project root
+
 echo "🚀 Browser-Stream Quick Start"
 echo "============================"
 
