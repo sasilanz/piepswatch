@@ -1,166 +1,122 @@
-# 🐦 Piepswatch - Bird Camera Streaming System
+# 🐦 Piepswatch - Bird Camera Live Stream
 
-A simple and reliable Raspberry Pi camera streaming solution for bird watching, featuring local TCP streaming and YouTube Live integration.
+Simple and reliable Raspberry Pi bird camera with RTSP streaming that works on **all devices**.
 
-## Features
+## 🚀 Quick Start
 
-- 📹 **TCP Stream**: Direct camera access via TCP (port 8888)
-- 📺 **YouTube Live**: Stream to YouTube for remote viewing
-- ⚡ **Auto-start**: Systemd service for automatic startup
-- 🔧 **Simple Setup**: One-script installation
-
-## Quick Start
-
-1. **Clone and install**:
-   ```bash
-   git clone https://github.com/sasilanz/piepswatch.git
-   cd piepswatch-birdcam
-   ./setup.sh
-   ```
-
-2. **View locally**:
-   ```bash
-   ffplay tcp://192.168.1.169:8888
-   ```
-
-3. **Stream to YouTube** (optional):
-   ```bash
-   # Setup YouTube key first
-   cp config/youtube-key.txt.template config/youtube-key.txt
-   # Edit the file and add your YouTube stream key
-   
-   # Start YouTube streaming (run from Mac/PC with ffmpeg)
-   ./scripts/youtube-stream.sh
-   ```
-
-## System Requirements
-
-- Raspberry Pi with camera module
-- Raspbian OS with camera support enabled
-- Network connection
-
-## Directory Structure
+**Stream is automatically running!** Just open in any app:
 
 ```
-piepswatch-birdcam/
-├── scripts/
-│   ├── birdcam-tcp-stream.sh    # Main camera TCP stream script
-│   └── youtube-stream.sh        # YouTube streaming script
-├── config/
-│   ├── birdcam-tcp.service      # Systemd service configuration
-│   └── youtube-key.txt.template # YouTube key template
-├── setup.sh                     # Automated installation script
-└── README.md                    # This file
+rtsp://192.168.1.169:8554/emily
 ```
 
-## Usage
+## 📱 How to View
 
-### Manual Control
+### iPhone/iPad
+- Install **VLC App** (free from App Store)
+- Open Network Stream: `rtsp://192.168.1.169:8554/emily`
+
+### Android  
+- Install **VLC App** or **MX Player**
+- Open Network Stream: `rtsp://192.168.1.169:8554/emily`
+
+### Mac/PC
+- **VLC Player**: Open Network Stream
+- **QuickTime**: File → Open Location
+- **Any RTSP-capable app**
+
+## ⚙️ Control
+
 ```bash
-# Start the stream
-sudo systemctl start birdcam-tcp.service
-
-# Stop the stream  
-sudo systemctl stop birdcam-tcp.service
-
 # Check status
-systemctl status birdcam-tcp.service
+sudo systemctl status emily-stream.service
+
+# Restart if needed  
+sudo systemctl restart emily-stream.service
 
 # View logs
-journalctl -u birdcam-tcp.service -f
+journalctl -u emily-stream.service -f
 ```
 
-### Local Viewing
-- **Stream URL**: `tcp://[PI-IP]:8888`
-- **FFplay**: `ffplay tcp://192.168.1.169:8888`
-- **VLC**: Open network stream with the TCP URL
+## 🌐 Network Setup
 
-### YouTube Streaming
-1. Get your stream key from [YouTube Studio](https://studio.youtube.com)
-2. Create `config/youtube-key.txt` with your key
-3. Run `./scripts/youtube-stream.sh` from a device with ffmpeg
+For different WiFi networks (IT courses, etc.):
 
-## Technical Details
+```bash
+sudo ./scripts/wifi-setup.sh
+```
 
-- **Resolution**: 640x480 (configurable in scripts)
+**Stream URLs for different networks:**
+- Home: `rtsp://192.168.1.169:8554/emily`
+- Hotspot: `rtsp://10.42.0.1:8554/emily` 
+- Course: `rtsp://[PI-IP]:8554/emily`
+
+## 📺 YouTube Streaming
+
+Stream to YouTube Live from Mac/PC:
+
+```bash
+# 1. Add your YouTube stream key
+cp config/youtube-key.txt.template config/youtube-key.txt
+# Edit the file with your key
+
+# 2. Start YouTube stream
+./scripts/youtube-stream.sh
+```
+
+## 🔧 Installation
+
+```bash
+git clone https://github.com/sasilanz/piepswatch.git
+cd piepswatch
+./setup.sh
+```
+
+## 🎓 IT Course Ready
+
+Perfect for teaching networking concepts:
+- RTSP protocol understanding
+- Network troubleshooting  
+- Multiple WiFi configurations
+- Cross-device compatibility
+
+See [IT Course Documentation](docs/it-course/) for detailed lesson plans.
+
+## 📋 Technical Details
+
+- **Protocol**: RTSP (Real Time Streaming Protocol)
 - **Format**: H.264 video stream
-- **Protocol**: TCP for local, RTMP for YouTube
-- **Service**: Auto-restart on failure with 5-second delay
+- **Resolution**: 640x480 @ 30fps
+- **Latency**: < 1 second (true live streaming)
+- **Compatibility**: All major devices and apps
 
-## Troubleshooting
+## 🏠 Network Addresses
 
-### Camera Issues
+| Network | IP | Stream URL |
+|---------|----|-----------| 
+| Home WiFi | 192.168.1.169 | `rtsp://192.168.1.169:8554/emily` |
+| Hotspot | 10.42.0.1 | `rtsp://10.42.0.1:8554/emily` |
+| Course WiFi | [variable] | `rtsp://[PI-IP]:8554/emily` |
+
+## 🛠 Troubleshooting
+
+**Stream not working?**
 ```bash
-# Test camera
-rpicam-vid -t 5000 --width 640 --height 480 --inline -o /dev/null
-
-# Enable camera (if needed)
-sudo raspi-config
-# -> Interface Options -> Camera -> Enable
+sudo systemctl restart emily-stream.service
 ```
 
-### Network Issues
+**Wrong IP address?**
 ```bash
-# Check Pi IP address
-hostname -I
-
-# Test TCP connection
-telnet 192.168.1.169 8888
+hostname -I  # Get current IP
 ```
 
-### Service Issues
+**Network issues?**
 ```bash
-# Restart service
-sudo systemctl restart birdcam-tcp.service
-
-# Full service reload
-sudo systemctl daemon-reload
-sudo systemctl restart birdcam-tcp.service
+sudo ./scripts/wifi-setup.sh  # Switch networks
 ```
-
-## Configuration
-
-Edit scripts to customize:
-- **Resolution**: Change `--width` and `--height` parameters
-- **Port**: Change `8888` to desired port
-- **Quality**: Add encoding parameters to rpicam-vid
-
-## License
-
-MIT License - Feel free to use for your own bird watching projects!
 
 ---
 
 **Created by**: Astrid Lanz, 2025  
-**Hardware**: Raspberry Pi + Camera Module  
-**Purpose**: Bird watching and nature observation
-
-## 🎓 IT-Kurs Integration
-
-Dieses System eignet sich perfekt als praktisches Beispiel für **Senioren-IT-Kurse** zum Thema Netzwerk und IoT.
-
-### Kurs-Features:
-- 📡 **Flexible WLAN-Konfiguration** mit verschiedenen Netzwerken  
-- 🔄 **Hotspot-Modus** für unabhängige Demos
-- 🔌 **USB-Ethernet Backup** für Notfall-Zugriff
-- 📚 **Interaktive Tools** für hands-on Learning
-
-### Schnellstart für Kursleiter:
-```bash
-# WLAN-Setup-Tool für flexible Netzwerke
-sudo ./scripts/wifi-setup.sh
-
-# USB-Ethernet für Backup-Zugriff aktivieren  
-sudo ./scripts/usb-ethernet-setup.sh
-
-# Kurs-Dokumentation
-cat docs/it-course/README.md
-cat docs/it-course/quick-reference.md
-```
-
-### Notfall-Zugriff im Schulungsraum:
-1. **Hotspot-Modus**: Pi wird zum WLAN-Access-Point (`Piepswatch-Demo`)
-2. **USB-Ethernet**: Direktverbindung zum Laptop über USB-Kabel
-3. **HDMI**: Monitor und Tastatur direkt anschließen
-
-Siehe [IT-Kurs Dokumentation](docs/it-course/README.md) für detaillierte Anleitung.
+**Purpose**: Bird watching and IT education  
+**Tech**: RTSP streaming - simple and reliable! 🎥✨
