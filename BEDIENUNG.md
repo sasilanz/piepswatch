@@ -145,3 +145,54 @@ Siehe auch: [docs/it-course/README.md](docs/it-course/README.md)
 - 🔧 Bessere Kompatibilität
 - 📱 Einfacher zu verwenden
 - 🌐 Flexible Netzwerk-Tools
+
+## 📱 Browser-Zugriff (iPhone/iPad/Android)
+
+**Problem**: TCP-Links funktionieren nicht im Browser!
+**Lösung**: HTTP-Web-Interface verwenden
+
+### Für Browser (Safari, Chrome, etc.):
+```bash
+# 1. Web-Server starten (zusätzlich zum TCP-Stream)
+./scripts/web-stream.sh
+
+# 2. Im Browser öffnen:  
+http://192.168.1.169:8080
+```
+
+### Browser-URLs:
+| Gerät | URL |
+|-------|-----|
+| **Zu Hause** | http://192.168.1.169:8080 |
+| **Hotspot** | http://10.42.0.1:8080 |  
+| **Schulung** | http://[PI-IP]:8080 |
+
+### Mobile Apps (empfohlen für beste Qualität):
+- **iPhone/iPad**: VLC App (kostenlos)
+  - URL: `tcp://192.168.1.169:8888`
+- **Android**: VLC App oder MX Player
+
+## 🔄 Beide Streams parallel
+
+Du kannst beide gleichzeitig nutzen:
+- **TCP-Stream**: Läuft automatisch (Port 8888) - für VLC Apps
+- **Web-Stream**: Startest du manuell (Port 8080) - für Browser
+
+```bash
+# TCP-Stream (läuft automatisch):
+systemctl status birdcam-tcp.service
+
+# Web-Stream zusätzlich starten:
+./scripts/web-stream.sh
+```
+
+## 📊 Stream-Vergleich
+
+| Stream-Typ | Qualität | Latenz | Geräte |
+|------------|----------|---------|--------|
+| **TCP** | Hoch | Niedrig | VLC Apps |
+| **HTTP/Browser** | Mittel | Höher | Alle Browser |
+
+**Empfehlung**: 
+- **VLC App** für beste Qualität
+- **Browser** für schnellen Zugriff ohne App
