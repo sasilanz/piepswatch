@@ -13,7 +13,7 @@ A simple and reliable Raspberry Pi camera streaming solution for bird watching, 
 
 1. **Clone and install**:
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/sasilanz/piepswatch.git
    cd piepswatch-birdcam
    ./setup.sh
    ```
