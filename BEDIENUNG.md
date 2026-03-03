@@ -13,9 +13,34 @@ rtsp://192.168.1.169:8554/emily
 
 ## Fernzugriff (wenn unterwegs)
 
-SSH-Zugang:
+Verbindung läuft über **Tailscale** (muss auf Handy/Laptop installiert sein).
+
+### Zuhause (lokales Netz)
 ```bash
 ssh piepswatch
+```
+
+### Unterwegs (via Tailscale)
+```bash
+ssh piepswatch-remote
+```
+
+SSH Config (`~/.ssh/config`):
+```
+Host piepswatch
+  HostName 192.168.1.169
+  User emily
+  IdentityFile ~/.ssh/id_ed25519
+
+Host piepswatch-remote
+  HostName 100.x.x.x        # Tailscale-IP aus web.tailscale.com
+  User emily
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+SSH-Key auf Pi einrichten (einmalig):
+```bash
+ssh-copy-id emily@100.x.x.x
 ```
 
 ### Stream-Status prüfen
@@ -35,17 +60,17 @@ sudo systemctl stop emily-stream
 
 Starten:
 ```bash
-ssh piepswatch "sudo systemctl start piepswatch-youtube"
+ssh piepswatch-remote "sudo systemctl start piepswatch-youtube"
 ```
 
 Stoppen:
 ```bash
-ssh piepswatch "sudo systemctl stop piepswatch-youtube"
+ssh piepswatch-remote "sudo systemctl stop piepswatch-youtube"
 ```
 
 Status:
 ```bash
-ssh piepswatch "sudo systemctl status piepswatch-youtube"
+ssh piepswatch-remote "sudo systemctl status piepswatch-youtube"
 ```
 
 Der YouTube-Stream braucht den RTSP-Stream — der muss laufen.
