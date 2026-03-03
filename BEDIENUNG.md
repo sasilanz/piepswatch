@@ -1,85 +1,106 @@
-# 📱 Piepswatch - Super Einfache Bedienung
+# Piepswatch - Bedienung
 
-## 🚀 Schnellstart  
+## Stream schauen (lokal, im Heimnetz)
 
-**Der Stream läuft automatisch!** 
+Der RTSP-Stream läuft automatisch beim Booten.
 
-### Für iPhone/iPad:
-1. **VLC App** aus App Store laden (kostenlos)
-2. **Network** → **Stream öffnen** 
-3. URL eingeben: `rtsp://192.168.1.169:8554/emily`
-4. **Fertig!** 🎥
-
-### Für Android:
-1. **VLC App** oder **MX Player** installieren  
-2. **Netzwerk-Stream** öffnen
-3. URL eingeben: `rtsp://192.168.1.169:8554/emily`
-4. **Fertig!** 🎥
-
-### Für Mac/PC:
-- **VLC**: Medien → Netzwerk-Stream öffnen
-- **QuickTime**: Datei → Adresse öffnen  
-- URL: `rtsp://192.168.1.169:8554/emily`
-
-## 🌐 Andere WLANs (IT-Kurs)
-
-```bash
-sudo ./scripts/wifi-setup.sh
+**VLC** (iPhone, Android, Mac, PC):
 ```
-
-**URLs je nach Netzwerk:**
-- **Zu Hause**: `rtsp://192.168.1.169:8554/emily`
-- **Hotspot**: `rtsp://10.42.0.1:8554/emily`
-- **Schulung**: `rtsp://[PI-IP]:8554/emily`
-
-## ⚙️ Service-Kontrolle
-
-```bash
-# Status prüfen
-sudo systemctl status emily-stream.service
-
-# Neustarten (bei Problemen)
-sudo systemctl restart emily-stream.service
-
-# Logs anzeigen  
-journalctl -u emily-stream.service -f
-```
-
-## 📺 YouTube Streaming
-
-```bash
-# 1. YouTube-Key eintragen
-cp config/youtube-key.txt.template config/youtube-key.txt
-nano config/youtube-key.txt  # Key einfügen
-
-# 2. Von Mac/PC aus streamen
-./scripts/youtube-stream.sh
-```
-
-## 🔧 Bei Problemen
-
-**Stream geht nicht?**
-```bash
-sudo systemctl restart emily-stream.service
-```
-
-**Falsche IP-Adresse?**  
-```bash
-hostname -I  # Aktuelle IP anzeigen
-```
-
-**WLAN-Probleme?**
-```bash
-sudo ./scripts/wifi-setup.sh  # Netzwerk wechseln
+rtsp://192.168.1.169:8554/emily
 ```
 
 ---
 
-## ✅ Warum RTSP?
+## Fernzugriff (wenn unterwegs)
 
-- ✅ **Funktioniert überall**: iPhone, Android, Mac, PC
-- ✅ **Echtes Live-Streaming**: < 1 Sekunde Verzögerung  
-- ✅ **Super einfach**: Eine URL, keine komplizierten Setups
-- ✅ **Professioneller Standard**: Verwendet von IP-Kameras weltweit
+SSH-Zugang:
+```bash
+ssh piepswatch
+```
 
-**So einfach kann Livestreaming sein! 🎥✨**
+### Stream-Status prüfen
+```bash
+sudo systemctl status emily-stream
+```
+
+### Stream manuell starten/stoppen
+```bash
+sudo systemctl start emily-stream
+sudo systemctl stop emily-stream
+```
+
+---
+
+## YouTube Live Stream (wenn verreist)
+
+Starten:
+```bash
+ssh piepswatch "sudo systemctl start piepswatch-youtube"
+```
+
+Stoppen:
+```bash
+ssh piepswatch "sudo systemctl stop piepswatch-youtube"
+```
+
+Status:
+```bash
+ssh piepswatch "sudo systemctl status piepswatch-youtube"
+```
+
+Der YouTube-Stream braucht den RTSP-Stream — der muss laufen.
+
+### Stream-Key erneuern
+```bash
+ssh piepswatch
+echo 'NEUER-KEY' > ~/piepswatch-birdcam/config/youtube-key.txt
+```
+Key holen: https://studio.youtube.com → Live übertragen → Stream-Einstellungen
+
+---
+
+## Automatischer Timer
+
+Der RTSP-Stream startet/stoppt automatisch:
+- **06:00** → Stream startet
+- **21:00** → Stream stoppt
+
+Timer anpassen (als root):
+```bash
+sudo crontab -e
+```
+
+---
+
+## Stromsparmodus
+
+Läuft automatisch beim Boot (piepswatch-power.service):
+- CPU: powersave (600 MHz im Leerlauf)
+- LEDs: aus
+- HDMI: deaktiviert
+- Bluetooth: deaktiviert
+- Audio: deaktiviert
+
+**Akku-Schätzung** (15000 mAh / 55.5 Wh):
+- Stream aktiv: ~2 W → ca. 27 Stunden
+- Mit Timer (15 h/Tag): ca. 2 Tage
+
+---
+
+## Bei Problemen
+
+Stream hängt:
+```bash
+sudo systemctl restart emily-stream
+```
+
+IP-Adresse vergessen:
+```bash
+hostname -I
+```
+
+Logs anschauen:
+```bash
+journalctl -u emily-stream -f
+journalctl -u piepswatch-youtube -f
+```
