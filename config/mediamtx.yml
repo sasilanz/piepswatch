@@ -1,0 +1,22 @@
+# Mediamtx - Piepswatch Vogelkamera
+
+rtspEncryption: "no"
+rtspAddress: :8554
+
+rtmpAddress: :1935
+hlsAddress: :8888
+webrtcAddress: :8889
+srtAddress: :8890
+
+logLevel: warn
+logDestinations: [stdout]
+
+paths:
+  emily:
+    source: rpiCamera
+    rpiCameraWidth: 1280
+    rpiCameraHeight: 720
+    rpiCameraFPS: 30
+    rpiCameraIDRPeriod: 60
+    rpiCameraBitrate: 2000000
+    rpiCameraDenoise: "off"

@@ -1,0 +1,13 @@
+[Unit]
+Description=Piepswatch Power Saving
+DefaultDependencies=no
+After=sysinit.target local-fs.target
+Before=emily-stream.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/piepswatch-power.sh
+
+[Install]
+WantedBy=multi-user.target

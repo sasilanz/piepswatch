@@ -1,0 +1,15 @@
+[Unit]
+Description=Emily Kamera Stream (mediamtx)
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/mediamtx /etc/mediamtx.yml
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+User=emily
+SupplementaryGroups=video
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Piepswatch YouTube Live Stream
+After=network.target emily-stream.service
+Requires=emily-stream.service
+
+[Service]
+ExecStart=/usr/local/bin/piepswatch-youtube.sh
+Restart=on-failure
+RestartSec=10
+User=emily
+
+[Install]
+WantedBy=multi-user.target
